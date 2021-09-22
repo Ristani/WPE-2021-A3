@@ -30,13 +30,13 @@ class House:
         """
         Defines the string representation of the house object.
         """
-        return "House:\n{}".format("\n".join(str(room) for room in self.rooms))
+        return f"{type(self).__name__}:\n" + "\n".join(str(room) for room in self.rooms)
 
-    def add_rooms(self, *args):
+    def add_rooms(self, *new_rooms):
         """
         Appends supplied arguments to the object rooms list.
         """
-        self.rooms += args
+        self.rooms += new_rooms
 
     def size(self):
         """
