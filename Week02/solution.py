@@ -1,8 +1,12 @@
+from Week03.solution import NotEnoughSpaceError
+
+
 class House:
     """
     This will describe a house, capable of having any number of rooms.
     """
-    def __init__(self):
+    def __init__(self, available_space=100):
+        self.available_space = available_space
         self.rooms = []
 
     def __str__(self):
@@ -12,7 +16,11 @@ class House:
         """
         Appends supplied objects to the houses list of rooms.
         """
-        self.rooms += new_rooms
+        for room in new_rooms:
+            if room.size + sum(room.size for room in self.rooms) <= self.available_space:
+                self.rooms.append(room)
+            else:
+                raise NotEnoughSpaceError(room.size, self.available_space - sum(room.size for room in self.rooms))
 
     def size(self):
         """
