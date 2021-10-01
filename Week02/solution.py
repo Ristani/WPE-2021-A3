@@ -17,10 +17,10 @@ class House:
         Appends supplied objects to the houses list of rooms.
         """
         for room in new_rooms:
-            if room.size + sum(room.size for room in self.rooms) <= self.available_space:
+            if room.size + self.size() <= self.available_space:
                 self.rooms.append(room)
             else:
-                raise NotEnoughSpaceError(room.size, self.available_space - sum(room.size for room in self.rooms))
+                raise NotEnoughSpaceError(room.size, self.available_space - self.size())
 
     def size(self):
         """
