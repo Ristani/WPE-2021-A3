@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class Neighborhood:
     """
     This will describe a neighborhood, capable of having any number of houses.
@@ -23,3 +26,6 @@ class Neighborhood:
         Returns the sum of the size attribute for all house objects stored in the neighborhood.
         """
         return sum(house.size() for house in self.houses)
+
+    def house_types(self):
+        return Counter(type(house).__name__ for house in self.houses)
