@@ -21,7 +21,7 @@ class House:
         self.available_space = available_space
         self.rooms: typing.List[Room] = []
 
-    def __str__(self) -> None:
+    def __str__(self) -> str:
         return f"{type(self).__name__}:\n" + "\n".join(str(room) for room in self.rooms)
 
     def add_rooms(self, *new_rooms: Room) -> None:
