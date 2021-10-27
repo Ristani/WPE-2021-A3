@@ -40,20 +40,35 @@ class House:
         """
         return sum(room.size for room in self.rooms)
 
+    def calculate_tax(self, tax_rate: float = 1) -> float:
+        return self.size() * 100 * tax_rate
+
 
 class SingleFamilyHouse(House):
     def __init__(self, available_space: int = 200) -> None:
         super().__init__(available_space)
+
+    def calculate_tax(self) -> float:
+        if self.size() <= 150:
+            return super().calculate_tax(1.2)
+        else:
+            return (150 * 100 * 1.2) + ((self.size() - 150) * 100 * 1.5)
 
 
 class TownHouse(House):
     def __init__(self, available_space: int = 100) -> None:
         super().__init__(available_space)
 
+    def calculate_tax(self) -> float:
+        return super().calculate_tax()
+
 
 class Apartment(House):
     def __init__(self, available_space: int = 80) -> None:
         super().__init__(available_space)
+
+    def calculate_tax(self) -> float:
+        return super().calculate_tax(0.75)
 
 
 class Neighborhood:
@@ -84,6 +99,9 @@ class Neighborhood:
 
     def house_types(self) -> typing.Counter[str]:
         return Counter(type(house).__name__ for house in self.houses)
+
+    def calculate_tax(self) -> float:
+        return sum(house.calculate_tax() for house in self.houses)
 
 
 class NotEnoughSpaceError(Exception):
