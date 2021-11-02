@@ -40,8 +40,8 @@ class House:
         """
         return sum(room.size for room in self.rooms)
 
-    def calculate_tax(self, tax_rate: float = 1) -> float:
-        return self.size() * 100 * tax_rate
+    def calculate_tax(self) -> float:
+        return self.size() * 100
 
 
 class SingleFamilyHouse(House):
@@ -49,10 +49,11 @@ class SingleFamilyHouse(House):
         super().__init__(available_space)
 
     def calculate_tax(self) -> float:
-        if self.size() <= 150:
-            return super().calculate_tax(1.2)
+        size = self.size()
+        if size <= 150:
+            return super().calculate_tax() * 1.2
         else:
-            return (150 * 100 * 1.2) + ((self.size() - 150) * 100 * 1.5)
+            return (150 * 100 * 1.2) + ((size - 150) * 100 * 1.5)
 
 
 class TownHouse(House):
@@ -68,7 +69,7 @@ class Apartment(House):
         super().__init__(available_space)
 
     def calculate_tax(self) -> float:
-        return super().calculate_tax(0.75)
+        return super().calculate_tax() * 0.75
 
 
 class Neighborhood:
