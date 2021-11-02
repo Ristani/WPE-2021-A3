@@ -49,6 +49,9 @@ class SingleFamilyHouse(House):
         super().__init__(available_space)
 
     def calculate_tax(self) -> float:
+        """
+        The SingleFamilyHouse calculates tax at 1.2 for the first 150 square feet, and 1.5 for every foot after.
+        """
         size = self.size()
         if size <= 150:
             return super().calculate_tax() * 1.2
@@ -59,9 +62,6 @@ class SingleFamilyHouse(House):
 class TownHouse(House):
     def __init__(self, available_space: int = 100) -> None:
         super().__init__(available_space)
-
-    def calculate_tax(self) -> float:
-        return super().calculate_tax()
 
 
 class Apartment(House):
@@ -99,9 +99,15 @@ class Neighborhood:
         return sum(house.size() for house in self.houses)
 
     def house_types(self) -> typing.Counter[str]:
+        """
+        Returns a count of each different type of house in a neighborhood.
+        """
         return Counter(type(house).__name__ for house in self.houses)
 
     def calculate_tax(self) -> float:
+        """
+        Returns the total tax value of every house in a given neighborhood.
+        """
         return sum(house.calculate_tax() for house in self.houses)
 
 
