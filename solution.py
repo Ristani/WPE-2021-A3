@@ -1,3 +1,4 @@
+from __future__ import annotations
 from collections import Counter
 import typing
 
@@ -23,6 +24,10 @@ class House:
 
     def __str__(self) -> str:
         return f"{type(self).__name__}:\n" + "\n".join(str(room) for room in self.rooms)
+
+    def __add__(self, new_room: Room) -> House:
+        self.add_rooms(new_room)
+        return self
 
     def add_rooms(self, *new_rooms: Room) -> None:
         """
@@ -83,6 +88,10 @@ class Neighborhood:
 
     def __str__(self) -> str:
         return f"{type(self).__name__}:\n" + "\n".join(str(house) for house in self.houses)
+
+    def __add__(self, new_house: House) -> Neighborhood:
+        self.add_houses(new_house)
+        return self
 
     def add_houses(self, *new_houses: House) -> None:
         """
